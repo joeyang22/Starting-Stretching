@@ -4,4 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_stretch">StretchActivity</string>
+
+    <string name="stretch_instructions">
+            Place your hands on some object that is overhead, while keeping your arms straight. You may bend forward to an object, as long as it is still "overhead". Attempt to push your head and chest through so that the arms are pressed behind the body.
+    </string>
 </resources>
