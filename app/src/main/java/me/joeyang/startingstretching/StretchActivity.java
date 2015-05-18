@@ -3,41 +3,94 @@ package me.joeyang.startingstretching;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.gc.materialdesign.views.ButtonRectangle;
+
+import java.util.Timer;
 
 
 public class StretchActivity extends ActionBarActivity {
     private static String LOG_TAG = "StretchActivity";
+
+    private static enum TimerState {ON,PAUSE,OFF}
+
+    private Timer timer;
+    private int TIMER_MILLISECONDS = 30*1000;
+    private int TIMER_INTERVAL = 1000;
+
+    private TimerState mTimerState = TimerState.OFF;
+
+    CountDownTimer mCountDownTimer;
+
     ImageView imgStretch;
     TextView txtStretchTitle;
     TextView txtStretchDescription;
+    TextView txtTimer;
+    ButtonRectangle btnTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stretch);
         Intent intent = getIntent();
-        Resources res = getResources();
+        final Resources res = getResources();
         String[] description = res.getStringArray(R.array.array_stretch_instructions);
-        Log.v(LOG_TAG, String.valueOf(intent.getIntExtra(res.getString(R.string.key_stretch_id),2424)));
 
-        txtStretchTitle = (TextView)findViewById(R.id.txtStretchTitle);
-        txtStretchDescription = (TextView)findViewById(R.id.txtStretchDescription);
-        imgStretch = (ImageView)findViewById(R.id.imgStretch);
+        int imageId = intent.getIntExtra(res.getString(R.string.key_stretch_icon),R.drawable.ic_logo);
+
+
+        txtStretchTitle = (TextView) findViewById(R.id.txtStretchTitle);
+        txtStretchDescription = (TextView) findViewById(R.id.txtStretchDescription);
+        imgStretch = (ImageView) findViewById(R.id.imgStretchBig);
+        txtTimer = (TextView) findViewById(R.id.txtTimer);
+        btnTimer = (ButtonRectangle) findViewById(R.id.btnTimer);
+
 
         txtStretchTitle.setText(intent.getStringExtra(res.getString(R.string.key_stretch_name)));
-//
+
         txtStretchDescription.setText(
                 res.getStringArray(R.array.array_stretch_instructions)
-                [intent.getIntExtra(res.getString(R.string.key_stretch_id),0)]);
-//
-//        imgStretch.setImageResource(intent.getIntExtra(res.getString(R.string.key_stretch_icon),
-//                R.drawable.ic_logo));
+                        [intent.getIntExtra(res.getString(R.string.key_stretch_id), 0)]);
+
+        imgStretch.setImageResource(imageId);
+
+        btnTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnTimer.setBackgroundColor(res.getColor(R.color.material_red));
+                btnTimer.setText("Stop");
+                switch (mTimerState) {
+                    case OFF:
+                        mCountDownTimer = new CountDownTimer(TIMER_MILLISECONDS, TIMER_INTERVAL) {
+
+                            public void onTick(long millisUntilFinished) {
+                                txtTimer.setText("Time Remaining: " + millisUntilFinished / 1000);
+                            }
+
+                            public void onFinish() {
+                                txtTimer.setText("Finished!");
+                            }
+                        }.start();
+                        mTimerState = TimerState.ON;
+                        break;
+
+                    case ON:
+                        mCountDownTimer.cancel();
+                        btnTimer.setBackgroundColor(res.getColor(R.color.accent_blue));
+                        btnTimer.setText("Reset");
+                        mTimerState = TimerState.OFF;
+                        break;
+                }
+
+            }
+        });
     }
 
     @Override
