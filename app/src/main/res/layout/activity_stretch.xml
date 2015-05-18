@@ -10,6 +10,13 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context="me.joeyang.startingstretching.StretchActivity">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="This is a title"
+        android:id="@+id/txtStretchTitle"
+        android:textAppearance="@android:style/TextAppearance.Large">
+    </TextView>
     <ImageView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -20,8 +27,9 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/stretch_instructions"
-        android:textAppearance="@android:style/TextAppearance.Medium"/>
+        android:text="fewafnkewahfoiewahfoewahfoewhiofewahiofewahfioweahfiohewiafheiahwifhweifhewifhewi"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:id="@+id/txtStretchDescription"/>
 
     <TextView
         android:gravity="center"

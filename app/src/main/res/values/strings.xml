@@ -1,11 +1,23 @@
 <resources>
+    <!--Titles-->
     <string name="app_name">Starting Stretching</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_stretch">StretchActivity</string>
+    <string name="title_activity_stretch">Stretch Details</string>
 
-    <string name="stretch_instructions">
-            Place your hands on some object that is overhead, while keeping your arms straight. You may bend forward to an object, as long as it is still "overhead". Attempt to push your head and chest through so that the arms are pressed behind the body.
-    </string>
+
+
+
+    <!--Keys-->
+    <string name="key_stretch_name">stretch</string>
+    <string name="key_stretch_icon">icon</string>
+    <string name="key_stretch_id">stretchID</string>
+
+    <!--Arrays-->
+
+    <string-array name="array_stretch_instructions">
+            <item>
+                Place your hands on some object that is overhead, while keeping your arms straight. You may bend forward to an object, as long as it is still "overhead". Attempt to push your head and chest through so that the arms are pressed behind the body.
+            </item>
+    </string-array>
+
 </resources>

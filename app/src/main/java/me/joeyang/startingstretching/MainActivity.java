@@ -27,16 +27,20 @@ public class MainActivity extends ActionBarActivity {
         stretchList.add(new Stretch(R.drawable.ic_logo, "Front Stretch", false));
         stretchList.add(new Stretch(R.drawable.ic_logo, "Rear Stretch", false));
         stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
 
-        mAdapter = new StretchAdapter(stretchList);
+        mAdapter = new StretchAdapter(stretchList, this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rvStretches);
         mRecyclerView.setHasFixedSize(true);
+
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
+
+
 
 
     }
