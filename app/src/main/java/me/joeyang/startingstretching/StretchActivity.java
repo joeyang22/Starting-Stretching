@@ -24,6 +24,7 @@ public class StretchActivity extends ActionBarActivity {
     private Timer timer;
     private int TIMER_MILLISECONDS = 30*1000;
     private int TIMER_INTERVAL = 1000;
+    private long currentTime = 30*1000;
 
     private TimerState mTimerState = TimerState.OFF;
 
@@ -34,6 +35,7 @@ public class StretchActivity extends ActionBarActivity {
     TextView txtStretchDescription;
     TextView txtTimer;
     ButtonRectangle btnTimer;
+    ButtonRectangle btnReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class StretchActivity extends ActionBarActivity {
         imgStretch = (ImageView) findViewById(R.id.imgStretchBig);
         txtTimer = (TextView) findViewById(R.id.txtTimer);
         btnTimer = (ButtonRectangle) findViewById(R.id.btnTimer);
+        btnReset = (ButtonRectangle) findViewById(R.id.btnReset);
 
 
         txtStretchTitle.setText(intent.getStringExtra(res.getString(R.string.key_stretch_name)));
@@ -68,10 +71,11 @@ public class StretchActivity extends ActionBarActivity {
                 btnTimer.setText("Stop");
                 switch (mTimerState) {
                     case OFF:
-                        mCountDownTimer = new CountDownTimer(TIMER_MILLISECONDS, TIMER_INTERVAL) {
+                        mCountDownTimer = new CountDownTimer(currentTime, TIMER_INTERVAL) {
 
                             public void onTick(long millisUntilFinished) {
                                 txtTimer.setText("Time Remaining: " + millisUntilFinished / 1000);
+                                currentTime = millisUntilFinished;
                             }
 
                             public void onFinish() {
@@ -79,6 +83,7 @@ public class StretchActivity extends ActionBarActivity {
                             }
                         }.start();
                         mTimerState = TimerState.ON;
+                        btnReset.setVisibility(View.VISIBLE);
                         break;
 
                     case ON:
@@ -91,7 +96,16 @@ public class StretchActivity extends ActionBarActivity {
 
             }
         });
+
+        btnReset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
