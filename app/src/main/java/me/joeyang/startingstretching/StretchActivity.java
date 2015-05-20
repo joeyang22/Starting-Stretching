@@ -13,18 +13,15 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 
-import java.util.Timer;
-
 
 public class StretchActivity extends ActionBarActivity {
     private static String LOG_TAG = "StretchActivity";
 
     private static enum TimerState {ON,PAUSE,OFF}
 
-    private Timer timer;
     private int TIMER_MILLISECONDS = 30*1000;
     private int TIMER_INTERVAL = 1000;
-    private long currentTime = 30*1000;
+    private long currentTime = TIMER_MILLISECONDS;
 
     private TimerState mTimerState = TimerState.OFF;
 
@@ -82,16 +79,20 @@ public class StretchActivity extends ActionBarActivity {
                                 txtTimer.setText("Finished!");
                             }
                         }.start();
-                        mTimerState = TimerState.ON;
                         btnReset.setVisibility(View.VISIBLE);
+
+                        mTimerState = TimerState.ON;
                         break;
 
                     case ON:
                         mCountDownTimer.cancel();
-                        btnTimer.setBackgroundColor(res.getColor(R.color.accent_blue));
-                        btnTimer.setText("Reset");
+                        btnTimer.setBackgroundColor(res.getColor(R.color.accent_green));
+                        btnTimer.setText("Resume");
                         mTimerState = TimerState.OFF;
                         break;
+
+                    case PAUSE:
+
                 }
 
             }
@@ -100,7 +101,12 @@ public class StretchActivity extends ActionBarActivity {
         btnReset.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                btnReset.setVisibility(View.GONE);
+                btnTimer.setText("Start");
+                btnTimer.setBackgroundColor(res.getColor(R.color.accent_green));
+                mCountDownTimer.cancel();
+                currentTime = TIMER_MILLISECONDS;
+                txtTimer.setText("Time Remaining: "+String.valueOf(currentTime/1000));
 
             }
         });

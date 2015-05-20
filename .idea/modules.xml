@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Starting-Stretching.iml" filepath="$PROJECT_DIR$/Starting-Stretching.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StartingStretching.iml" filepath="$PROJECT_DIR$/StartingStretching.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

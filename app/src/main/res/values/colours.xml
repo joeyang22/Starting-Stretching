@@ -2,6 +2,7 @@
 <resources>
     <color name="material_red">#D32F2F</color>
     <color name="accent_blue">#448AFF</color>
+    <color name="accent_green">#4CAF50</color>
     <color name="material_magenta_light">#673AB7</color>
     <color name="material_magenta_dark">#512DA8</color>
 </resources>
