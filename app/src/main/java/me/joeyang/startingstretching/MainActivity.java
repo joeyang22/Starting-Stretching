@@ -1,5 +1,6 @@
 package me.joeyang.startingstretching;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,7 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private StretchAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Stretch> stretchList;
 
@@ -66,6 +67,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mAdapter.onActivityResult(requestCode, resultCode, data);
     }
 
 }

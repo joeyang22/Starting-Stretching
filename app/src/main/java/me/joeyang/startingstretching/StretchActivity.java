@@ -20,7 +20,8 @@ public class StretchActivity extends ActionBarActivity {
 
     private static enum TimerState {ON,PAUSE,OFF}
 
-    private int TIMER_MILLISECONDS = 30*1000;
+    private int TIMER_MILLISECONDS = 29*1000;
+    //This needs to be 1 second less than total time because onTick is called once after its at 0
     private int TIMER_INTERVAL = 1000;
     private long currentTime = TIMER_MILLISECONDS;
 
@@ -47,7 +48,7 @@ public class StretchActivity extends ActionBarActivity {
         final Resources res = getResources();
         String[] description = res.getStringArray(R.array.array_stretch_instructions);
 
-        int imageId = intent.getIntExtra(res.getString(R.string.key_stretch_icon),R.drawable.ic_logo);
+        int imageId = intent.getIntExtra(res.getString(R.string.key_stretch_icon), R.drawable.ic_logo);
 
         //Find Views
 
@@ -82,7 +83,7 @@ public class StretchActivity extends ActionBarActivity {
 
 
                             public void onTick(long millisUntilFinished) {
-                                txtTimer.setText("Time Remaining: " + millisUntilFinished / 1000);
+                                txtTimer.setText("Time Remaining: " + ((millisUntilFinished+1000) / 1000));
                                 currentTime = millisUntilFinished;
                             }
 
@@ -130,9 +131,16 @@ public class StretchActivity extends ActionBarActivity {
                 btnTimer.setBackgroundColor(res.getColor(R.color.accent_green));
                 mCountDownTimer.cancel();
                 currentTime = TIMER_MILLISECONDS;
-                txtTimer.setText("Time Remaining: "+String.valueOf(currentTime/1000));
+                txtTimer.setText("Time Remaining: " + String.valueOf(currentTime / 1000));
                 mTimerState = TimerState.OFF;
 
+            }
+        });
+
+        btnFinish.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
             }
         });
     }

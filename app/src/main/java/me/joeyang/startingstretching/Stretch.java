@@ -8,6 +8,16 @@ public class Stretch {
     private String stretchName;
     private boolean bothLimbs;
 
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean isFinished) {
+        this.isFinished = isFinished;
+    }
+
+    private boolean isFinished;
+
     public Stretch(int iconId, String stretchName, boolean bothLimbs) {
         this.iconId = iconId;
         this.stretchName = stretchName;
