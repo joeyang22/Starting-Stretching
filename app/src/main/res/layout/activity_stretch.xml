@@ -62,6 +62,15 @@
             android:text="Reset"
             android:visibility="gone"
             materialdesign:rippleSpeed="45"/>
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/btnDone"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/accent_blue"
+            android:text="Done (Go Back)"
+            android:visibility="gone"
+            materialdesign:rippleSpeed="45"/>
     </LinearLayout>
 
 </LinearLayout>

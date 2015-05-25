@@ -18,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Stretch> stretchList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,4 +67,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

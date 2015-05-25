@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,8 @@ public class StretchActivity extends ActionBarActivity {
     private int TIMER_INTERVAL = 1000;
     private long currentTime = TIMER_MILLISECONDS;
 
+    private boolean finishedStretch = false;
+
     private TimerState mTimerState = TimerState.OFF;
 
     CountDownTimer mCountDownTimer;
@@ -33,17 +36,20 @@ public class StretchActivity extends ActionBarActivity {
     TextView txtTimer;
     ButtonRectangle btnTimer;
     ButtonRectangle btnReset;
+    ButtonRectangle btnFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stretch);
-        Intent intent = getIntent();
+        //Get Info
+        final Intent intent = getIntent();
         final Resources res = getResources();
         String[] description = res.getStringArray(R.array.array_stretch_instructions);
 
         int imageId = intent.getIntExtra(res.getString(R.string.key_stretch_icon),R.drawable.ic_logo);
 
+        //Find Views
 
         txtStretchTitle = (TextView) findViewById(R.id.txtStretchTitle);
         txtStretchDescription = (TextView) findViewById(R.id.txtStretchDescription);
@@ -51,7 +57,9 @@ public class StretchActivity extends ActionBarActivity {
         txtTimer = (TextView) findViewById(R.id.txtTimer);
         btnTimer = (ButtonRectangle) findViewById(R.id.btnTimer);
         btnReset = (ButtonRectangle) findViewById(R.id.btnReset);
+        btnFinish = (ButtonRectangle) findViewById(R.id.btnDone);
 
+        //Set Views
 
         txtStretchTitle.setText(intent.getStringExtra(res.getString(R.string.key_stretch_name)));
 
@@ -61,6 +69,7 @@ public class StretchActivity extends ActionBarActivity {
 
         imgStretch.setImageResource(imageId);
 
+        // Button Logic for the timer
         btnTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +79,8 @@ public class StretchActivity extends ActionBarActivity {
                     case OFF:
                         mCountDownTimer = new CountDownTimer(currentTime, TIMER_INTERVAL) {
 
+
+
                             public void onTick(long millisUntilFinished) {
                                 txtTimer.setText("Time Remaining: " + millisUntilFinished / 1000);
                                 currentTime = millisUntilFinished;
@@ -77,10 +88,23 @@ public class StretchActivity extends ActionBarActivity {
 
                             public void onFinish() {
                                 txtTimer.setText("Finished!");
+                                btnReset.setVisibility(View.GONE);
+                                btnTimer.setText("Start");
+                                btnTimer.setBackgroundColor(res.getColor(R.color.accent_green));
+                                btnFinish.setVisibility(View.VISIBLE);
+                                mTimerState = TimerState.OFF;
+                                currentTime = TIMER_MILLISECONDS;
+                                //Validate you've finished a stretch
+                                finishedStretch = true;
+                                Log.v(LOG_TAG, "onFinish Called");
+                                setResult(RESULT_OK, intent);
+
+
                             }
+
                         }.start();
                         btnReset.setVisibility(View.VISIBLE);
-
+                        btnFinish.setVisibility(View.GONE);
                         mTimerState = TimerState.ON;
                         break;
 
@@ -88,10 +112,10 @@ public class StretchActivity extends ActionBarActivity {
                         mCountDownTimer.cancel();
                         btnTimer.setBackgroundColor(res.getColor(R.color.accent_green));
                         btnTimer.setText("Resume");
+                        btnReset.setVisibility(View.VISIBLE);
                         mTimerState = TimerState.OFF;
                         break;
 
-                    case PAUSE:
 
                 }
 
@@ -107,6 +131,7 @@ public class StretchActivity extends ActionBarActivity {
                 mCountDownTimer.cancel();
                 currentTime = TIMER_MILLISECONDS;
                 txtTimer.setText("Time Remaining: "+String.valueOf(currentTime/1000));
+                mTimerState = TimerState.OFF;
 
             }
         });
@@ -134,4 +159,5 @@ public class StretchActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

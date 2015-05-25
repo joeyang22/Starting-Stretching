@@ -13,25 +13,30 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:gravity="center">
             <ImageView
                 android:layout_width="125dp"
                 android:layout_height="match_parent"
                 android:id="@+id/imgStretch"
                 android:src="@drawable/ic_logo"/>
             <TextView
-                android:text="Standing sideways stretcherwejaioeowafbewa"
+                android:text="Standing sideways"
                 android:id="@+id/txtTitle"
                 android:textAppearance="@android:style/TextAppearance.Large"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content">
 
             </TextView>
-            <TextView
+            <ImageView
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
+                android:layout_width="wrap_content"
+                android:id="@+id/imgFinished"
+                android:src="@drawable/checkmark"
+                android:visibility="invisible">
 
-            </TextView>
+            </ImageView>
 
 
         </LinearLayout>

@@ -1,5 +1,6 @@
 package me.joeyang.startingstretching;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +17,12 @@ import java.util.List;
  */
 public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHolder> {
     private static String LOG_TAG = "StretchAdapter";
+    static final int RESULT_STRETCH = 1;
     private static List<Stretch> stretchList;
     private static Stretch currentItem;
     private static int currentItemId;
     private static Context mContext;
+
 
     public StretchAdapter(List<Stretch> stretches, Context context){
         this.stretchList = stretches;
@@ -62,13 +65,29 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
                     intent.putExtra(mContext.getString(R.string.key_stretch_name), currentItem.getStretchName());
                     intent.putExtra(mContext.getString(R.string.key_stretch_icon), currentItem.getIconId());
                     intent.putExtra(mContext.getString(R.string.key_stretch_id), currentItemId);
-                    mContext.startActivity(intent);
+                    ((Activity) mContext).startActivityForResult(intent, RESULT_STRETCH);
+
 
                 }
             });
         }
 
 
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent){
+        ViewHolder holder = v
+
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == RESULT_STRETCH) {
+            // Make sure the request was successful
+            if (resultCode == Activity.RESULT_OK) {
+                int position = data.getIntExtra(mContext.getString(R.string.key_stretch_id),0);
+                Stretch stretch = stretchList.get(position);
+            }
+        }
     }
 
 
