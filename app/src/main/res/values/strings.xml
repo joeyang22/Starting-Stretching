@@ -11,6 +11,7 @@
     <string name="key_stretch_name">stretch</string>
     <string name="key_stretch_icon">icon</string>
     <string name="key_stretch_id">stretchID</string>
+    <string name="key_time_stretched">timeStretched</string>
 
     <!--Arrays-->
 

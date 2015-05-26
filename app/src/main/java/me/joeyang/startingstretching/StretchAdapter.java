@@ -23,6 +23,7 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
     private static Stretch currentItem;
     private static int currentItemId;
     private static Context mContext;
+    private DailyStretch dailyStretchList = new DailyStretch();
 
 
     public StretchAdapter(List<Stretch> stretches, Context context){
@@ -91,9 +92,12 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
             if (resultCode == Activity.RESULT_OK) {
                 Log.v(LOG_TAG, "onActivityResult called");
                 int position = data.getIntExtra(mContext.getString(R.string.key_stretch_id),0);
+                int timeCount = data.getIntExtra(mContext.getString(R.string.key_time_stretched),30);
                 Stretch stretch = stretchList.get(position);
                 stretch.setIsFinished(true);
                 notifyItemChanged(position);
+                dailyStretchList.setFinished(position, true);
+                dailyStretchList.setSeconds(position, timeCount);
 
 
             }

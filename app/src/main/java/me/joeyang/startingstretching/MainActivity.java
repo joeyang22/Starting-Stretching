@@ -20,12 +20,13 @@ public class MainActivity extends ActionBarActivity {
     private List<Stretch> stretchList;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         stretchList = new ArrayList<Stretch>();
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Back Stretch", false));
+        stretchList.add(new Stretch(R.drawable.stretch_shoulder_extension, "Overhead Shoulder Extension", false));
         stretchList.add(new Stretch(R.drawable.ic_logo, "Front Stretch", false));
         stretchList.add(new Stretch(R.drawable.ic_logo, "Rear Stretch", false));
         stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
