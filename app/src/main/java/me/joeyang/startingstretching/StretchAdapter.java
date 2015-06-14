@@ -23,7 +23,8 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
     private static Stretch currentItem;
     private static int currentItemId;
     private static Context mContext;
-    private DailyStretch dailyStretchList = new DailyStretch();
+    static DailyStretch dailyStretchList = new DailyStretch();
+
 
 
     public StretchAdapter(List<Stretch> stretches, Context context){

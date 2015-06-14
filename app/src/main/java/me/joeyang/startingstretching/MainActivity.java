@@ -1,23 +1,18 @@
 package me.joeyang.startingstretching;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private RecyclerView mRecyclerView;
-    private StretchAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private List<Stretch> stretchList;
+
+    StretchPageAdapter mStretchPageAdapter;
+    ViewPager mViewPager;
+
 
 
 
@@ -25,24 +20,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        stretchList = new ArrayList<Stretch>();
-        stretchList.add(new Stretch(R.drawable.stretch_shoulder_extension, "Overhead Shoulder Extension", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Front Stretch", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Rear Stretch", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
 
-        mAdapter = new StretchAdapter(stretchList, this);
+        mStretchPageAdapter = new StretchPageAdapter(getSupportFragmentManager());
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rvStretches);
-        mRecyclerView.setHasFixedSize(true);
-
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mRecyclerView.setAdapter(mAdapter);
-
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mStretchPageAdapter);
 
 
 
@@ -70,9 +52,6 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mAdapter.onActivityResult(requestCode, resultCode, data);
-    }
+
 
 }

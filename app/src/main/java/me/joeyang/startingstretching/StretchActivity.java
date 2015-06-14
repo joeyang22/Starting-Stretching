@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -161,7 +160,6 @@ public class StretchActivity extends ActionBarActivity {
                 txtTimer.setText("Time Remaining: " +secondsLeft );
                 currentTime = millisUntilFinished;
             }
-            Log.i("test","ms="+millisUntilFinished+" till finished="+secondsLeft );
 
         }
 

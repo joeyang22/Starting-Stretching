@@ -5,7 +5,8 @@
     <string name="title_activity_stretch">Stretch Details</string>
 
 
-
+    <!--Text for Views-->
+    <string name="progress_text">Progress</string>
 
     <!--Keys-->
     <string name="key_stretch_name">stretch</string>
@@ -29,5 +30,18 @@
                 Place your hands on some object that is overhead, while keeping your arms straight. You may bend forward to an object, as long as it is still "overhead". Attempt to push your head and chest through so that the arms are pressed behind the body.
         </item>
     </string-array>
+
+
+    <string-array name="page_titles">
+        <item>
+            Home
+        </item>
+        <item>
+            Progress
+        </item>
+    </string-array>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
