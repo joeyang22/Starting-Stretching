@@ -1,6 +1,5 @@
 package me.joeyang.startingstretching;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +32,13 @@ public class StretchFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -61,8 +67,9 @@ public class StretchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String text = "";
-                for (int i = 0; i < 9; i++) {
-                    text += "Stretch " + i + 1 + " ; " + StretchAdapter.dailyStretchList.getFinished()[i] + " for " + StretchAdapter.dailyStretchList.getSeconds()[i] + " seconds\n";
+                List<FinishedStretch> stretches = FinishedStretch.listAll(FinishedStretch.class);
+                for (FinishedStretch fs : stretches){
+                    text+=fs.stretchId+" "+fs.timeStretched+" "+fs.dayOfYear+" "+fs.year+"\n";
                 }
                 Dialog dialog = new Dialog(getActivity(), "Time done", text);
                 dialog.show();
@@ -70,9 +77,5 @@ public class StretchFragment extends Fragment {
             }
         });
         return rootView;
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mAdapter.onActivityResult(requestCode, resultCode, data);
     }
 }

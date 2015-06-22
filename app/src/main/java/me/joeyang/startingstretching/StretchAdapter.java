@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.joda.time.LocalDate;
+
 import java.util.List;
 
 /**
@@ -23,13 +25,16 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
     private static Stretch currentItem;
     private static int currentItemId;
     private static Context mContext;
-    static DailyStretch dailyStretchList = new DailyStretch();
+    private int yearDay;
+    private LocalDate currentDate;
 
 
 
     public StretchAdapter(List<Stretch> stretches, Context context){
         this.stretchList = stretches;
         this.mContext = context;
+        this.currentDate = new LocalDate();
+        this.yearDay = Utility.formatYearDay(currentDate.getDayOfYear(), currentDate.getYear());
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,7 +48,8 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
         currentItem = stretchList.get(position);
         holder.imgStretch.setImageResource(currentItem.getIconId());
         holder.txtStretch.setText(currentItem.getStretchName());
-        if (currentItem.isFinished()){
+        Log.v(LOG_TAG, "This is being called");
+        if (FinishedStretch.find(FinishedStretch.class, "stretch_Id = ? and year_Day = ?",String.valueOf(position),String.valueOf(yearDay)).size()>0){
             holder.imgFinished.setVisibility(View.VISIBLE);
         }
 
@@ -86,24 +92,7 @@ public class StretchAdapter extends RecyclerView.Adapter<StretchAdapter.ViewHold
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == RESULT_STRETCH) {
-            // Make sure the request was successful
-            if (resultCode == Activity.RESULT_OK) {
-                Log.v(LOG_TAG, "onActivityResult called");
-                int position = data.getIntExtra(mContext.getString(R.string.key_stretch_id),0);
-                int timeCount = data.getIntExtra(mContext.getString(R.string.key_time_stretched),30);
-                Stretch stretch = stretchList.get(position);
-                stretch.setIsFinished(true);
-                notifyItemChanged(position);
-                dailyStretchList.setFinished(position, true);
-                dailyStretchList.setSeconds(position, timeCount);
 
-
-            }
-        }
-    }
 
 
 

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,7 @@ public class StretchActivity extends ActionBarActivity {
 
     private static enum TimerState {ON,PAUSE,OFF}
 
-    final long TIMER_MILLISECONDS = 30*1000;
+    final long TIMER_MILLISECONDS = 3*1000;
     //This needs to be 1 second less than total time because onTick is called once after its at 0
     final int TIMER_INTERVAL = 250;
     //Would use a round 1000ms, but android is pretty inaccurate so we need this for rounding reasons
@@ -175,8 +176,11 @@ public class StretchActivity extends ActionBarActivity {
 
             //Validate you've finished a stretch
             finishedStretchCount+=TIMER_MILLISECONDS/1000;
-            intent.putExtra(res.getString(R.string.key_time_stretched), finishedStretchCount);
-            setResult(RESULT_OK, intent);
+
+            FinishedStretch stretch = new FinishedStretch(intent.getIntExtra(res.getString(R.string.key_stretch_id),0),finishedStretchCount);
+            Log.v("SwagTag", String.valueOf(stretch.dateFinished));
+            stretch.save();
+
 
 
         }
