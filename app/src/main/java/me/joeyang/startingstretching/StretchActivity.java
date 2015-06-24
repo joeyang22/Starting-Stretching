@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
+
+import org.joda.time.LocalDate;
+
+import java.util.List;
 
 
 public class StretchActivity extends ActionBarActivity {
@@ -166,6 +169,8 @@ public class StretchActivity extends ActionBarActivity {
 
         @Override
         public void onFinish() {
+            LocalDate today = new LocalDate();
+            String queryParam = String.valueOf(Utility.formatYearDay(today.getDayOfYear(), today.getYear()));
             txtTimer.setText("Finished!");
             btnReset.setVisibility(View.GONE);
             btnTimer.setText("Start");
@@ -173,12 +178,22 @@ public class StretchActivity extends ActionBarActivity {
             btnFinish.setVisibility(View.VISIBLE);
             mTimerState = TimerState.OFF;
             currentTime = TIMER_MILLISECONDS;
-
+            FinishedStretch stretch;
+            List<FinishedStretch> tempStretchList = FinishedStretch.find
+                    (FinishedStretch.class,
+                            "year_Day = ? and stretch_Id =?",
+                            queryParam,
+                            String.valueOf(intent.getIntExtra(res.getString(R.string.key_stretch_id),0)));
             //Validate you've finished a stretch
             finishedStretchCount+=TIMER_MILLISECONDS/1000;
 
-            FinishedStretch stretch = new FinishedStretch(intent.getIntExtra(res.getString(R.string.key_stretch_id),0),finishedStretchCount);
-            Log.v("SwagTag", String.valueOf(stretch.dateFinished));
+
+            if (tempStretchList.size()!=0) {
+                stretch = tempStretchList.get(0);
+                stretch.timeStretched+=finishedStretchCount;
+            }else {
+                stretch = new FinishedStretch(intent.getIntExtra(res.getString(R.string.key_stretch_id), 0), finishedStretchCount);
+            }
             stretch.save();
 
 
