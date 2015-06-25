@@ -8,15 +8,25 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  * Created by Joe Yang on 6/14/2015.
  */
 public class StretchPageAdapter extends FragmentStatePagerAdapter {
-    private String[] titles = {"Tab 1", "Tab 2"};
+    private String[] titles = {"Stretches", "Progress"};
     public StretchPageAdapter (FragmentManager fm){
         super(fm);
     }
 
     @Override
     public Fragment getItem(int i){
-        Fragment fragment = new StretchFragment();
-        return fragment;
+        Fragment fragment;
+        switch (i){
+            case 0:
+                fragment = new StretchFragment();
+                return fragment;
+            case 1:
+                fragment = new ProgressFragment();
+                return fragment;
+
+        }
+        return new StretchFragment();
+
     }
 
     @Override

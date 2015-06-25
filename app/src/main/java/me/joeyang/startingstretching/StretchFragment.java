@@ -68,9 +68,14 @@ public class StretchFragment extends Fragment {
             public void onClick(View v) {
                 String text = "";
                 List<FinishedStretch> stretches = FinishedStretch.listAll(FinishedStretch.class);
-                for (FinishedStretch fs : stretches){
-                    text+=fs.stretchId+" "+fs.timeStretched+" "+fs.dayOfYear+" "+fs.year+"\n";
+                text+=Utility.getDaysBetween(2015365,2016001)+"\n";
+                text+=Utility.getDaysBetween(2009005, 2009005)+"\n";
+                text+=Utility.getSubtracted(5,2009005)+"\n";
+
+                for (FinishedStretch stretch : stretches){
+                    text+=stretch.dayOfYear+"\n";
                 }
+
                 Dialog dialog = new Dialog(getActivity(), "Time done", text);
                 dialog.show();
 

@@ -197,7 +197,6 @@ public class StretchActivity extends ActionBarActivity {
             stretch.save();
 
 
-
         }
     }
 

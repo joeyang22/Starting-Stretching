@@ -1,6 +1,7 @@
 package me.joeyang.startingstretching;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import org.joda.time.LocalDate;
 
@@ -9,11 +10,13 @@ import org.joda.time.LocalDate;
  */
 public class FinishedStretch extends SugarRecord<FinishedStretch> {
     int stretchId;
-    LocalDate dateFinished;
     int timeStretched;
     int yearDay;
     int dayOfYear;
     int year;
+
+    @Ignore
+    LocalDate dateFinished;
 
     public FinishedStretch(){
     }
