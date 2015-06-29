@@ -27,7 +27,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ProgressFragment extends Fragment {
-    LineChart mProgressChart;
+    static LineChart mProgressChart;
     final String LOG_TAG = ProgressFragment.this.getClass().getSimpleName();
 
     private static ArrayList<Entry> entries = new ArrayList<Entry>();
@@ -36,16 +36,20 @@ public class ProgressFragment extends Fragment {
     private static ArrayList<String> xVals;
     private static LineData data;
 
+
     public ProgressFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        Log.i(LOG_TAG, "onResume Called");
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        Log.i(LOG_TAG, String.valueOf(isVisibleToUser));
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Log.i(LOG_TAG,"Happening");
+            updateData();
 
-
+        }
     }
 
     @Override
@@ -57,13 +61,6 @@ public class ProgressFragment extends Fragment {
         mProgressChart = (LineChart) rootView.findViewById(R.id.progressChart);
 
         updateData();
-
-        LineData data = new LineData(xVals, dataSets);
-
-        mProgressChart.setData(data);
-
-
-
 
         return rootView;
     }
@@ -101,6 +98,13 @@ public class ProgressFragment extends Fragment {
         dataSets.add(dataSet);
         String[] strings = {"a","b","c","d","e","f","g"};
         xVals =  new ArrayList<>(Arrays.asList(strings));
+
+        LineData data = new LineData(xVals, dataSets);
+
+        mProgressChart.setData(data);
+
+        mProgressChart.invalidate();
+
     }
 
 

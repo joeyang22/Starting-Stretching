@@ -46,10 +46,14 @@ public class StretchFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_stretches, container, false);
         stretchList = new ArrayList<Stretch>();
         stretchList.add(new Stretch(R.drawable.stretch_shoulder_extension, "Overhead Shoulder Extension", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Front Stretch", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Rear Stretch", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
-        stretchList.add(new Stretch(R.drawable.ic_logo, "Side Stretch", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Underarm Shoulder Stretch", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Rear Hand Clasp", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Full Squat", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Standing Pike", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Kneeling Lunge", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Butterfly", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Backbend", false));
+        stretchList.add(new Stretch(R.drawable.ic_logo, "Lying Twist", false));
 
         mAdapter = new StretchAdapter(stretchList, getActivity());
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rvStretches);
